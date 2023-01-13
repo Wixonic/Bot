@@ -1,0 +1,14 @@
+{
+	"name": "wixibot",
+	"version": "1.0.0",
+	"description": "A Discord bot created by me for me.",
+	"main": "app.js",
+	"keywords": [
+		"discord",
+		"bot"
+	],
+	"author": "Wixonic",
+	"dependencies": {
+		"discord.js": "^14.7.1"
+	}
+}
