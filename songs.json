@@ -1,0 +1,45 @@
+[
+	{
+		"id": "faded",
+		"name": "Faded",
+		"artist": "Alan Walker",
+		"url": "alan-walker/faded",
+		"duration": 213000
+	},{
+		"id": "alone",
+		"name": "Alone",
+		"artist": "Alan Walker",
+		"url": "alan-walker/alone",
+		"duration": 163000
+	},{
+		"id": "the-spectre",
+		"name": "The Spectre",
+		"artist": "Alan Walker",
+		"url": "alan-walker/the-spectre",
+		"duration": 208000
+	},{
+		"id": "bifrost",
+		"name": "Bifrost",
+		"artist": "Ummet Ozcan",
+		"url": "ummet-ozcan/bifrost",
+		"duration": 156000
+	},{
+		"id": "insanity",
+		"name": "Insanity",
+		"artist": "Mountcharleone",
+		"url": "mountcharleone/insanity",
+		"duration": 174000
+	},{
+		"id": "the-crew-2",
+		"name": "Welcome to Motornation",
+		"artist": "The Crew 2",
+		"url": "the-crew-2/welcome-to-motornation",
+		"duration": 225000
+	},{
+		"id": "alone-marshmello",
+		"name": "Alone",
+		"artist": "Marshmello",
+		"url": "marshmello/alone",
+		"duration": 200000
+	}
+]
