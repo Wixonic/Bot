@@ -17,6 +17,7 @@ class AudioPlayer {
 		this.nextSongTimeout = null;
 		this.player = createAudioPlayer();
 		this.resource = null;
+		this.volume = 0.25;
 	};
 
 	connect (channel) {
@@ -34,6 +35,12 @@ class AudioPlayer {
 		this.connections.find((connection) => connection.joinConfig.channelId == channelId).destroy();
 	};
 
+	get list () {
+		return JSON.parse(readFileSync("songs.json",{
+			encoding: "utf-8"
+		}));
+	};
+
 	play (song={},random=false) {
 		if (this.nextSongTimeout) {
 			clearTimeout(this.nextSongTimeout);
@@ -46,7 +53,12 @@ class AudioPlayer {
 			res.pipe(stream);
 
 			res.on("end",async () => {
-				this.player.play(createAudioResource(createReadStream("./current.mp3")));
+				this.resource = createAudioResource(createReadStream("./current.mp3"),{
+					inlineVolume: true
+				});
+
+				this.resource.volume.setVolume(this.volume);
+				this.player.play(this.resource);
 				
 				this.nextSongTimeout = setTimeout(() => {
 					if (random) {
@@ -66,12 +78,6 @@ class AudioPlayer {
 
 	random () {
 		this.play(this.list[Math.floor(Math.random() * this.list.length)],true);
-	};
-
-	get list () {
-		return JSON.parse(readFileSync("songs.json",{
-			encoding: "utf-8"
-		}));
 	};
 };
 
@@ -118,6 +124,26 @@ client.on(Events.InteractionCreate,(interaction) => {
 							});
 						}
 						break;
+					
+					case "play":
+						const song = AP.list[interaction.options.getString("song",true)];
+
+						AP.play(song);
+
+						interaction.reply({
+							content: `Playing **${song.name}**, by **${song.artist}**`,
+							ephemeral: true
+						});
+						break;
+					
+					case "random":
+						AP.random();
+
+						interaction.reply({
+							content: "Playing songs randomly",
+							ephemeral: true
+						});
+						break;
 				};
 				break;
 		}
@@ -126,6 +152,27 @@ client.on(Events.InteractionCreate,(interaction) => {
 
 client.on(Events.ClientReady,async () => {
 	client.user.setStatus(PresenceUpdateStatus.Online);
+
+	const songChoices = [];
+
+	for (let id in AP.list) {
+		songChoices.push({
+			name: `${AP.list[id].name || "Unknow"} - ${AP.list[id].artist || "Unknown artist"}`,
+			value: id
+		});
+	}
+
+	songChoices.sort((a,b) => {
+		for (let x = 0; x < Math.min(a.name.length,b.name.length); ++x) {
+			if (a.name.charCodeAt(x) < b.name.charCodeAt(x)) {
+				return -1;
+			} else if (a.name.charCodeAt(x) > b.name.charCodeAt(x)) {
+				return 1;
+			}
+		}
+
+		return 0;
+	});
 
 	client.application.commands.set([
 		{
@@ -150,6 +197,21 @@ client.on(Events.ClientReady,async () => {
 					required: true,
 					type: ApplicationCommandOptionType.Channel
 				}],
+				type: ApplicationCommandOptionType.Subcommand
+			},{
+				description: "Choose the song to play",
+				name: "play",
+				options: [{
+					choices: songChoices,
+					description: "The song to play",
+					name: "song",
+					required: true,
+					type: ApplicationCommandOptionType.String
+				}],
+				type: ApplicationCommandOptionType.Subcommand
+			},{
+				description: "Play songs randomly",
+				name: "random",
 				type: ApplicationCommandOptionType.Subcommand
 			}],
 			type: ApplicationCommandType.ChatInput
