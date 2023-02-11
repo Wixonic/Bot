@@ -47,5 +47,11 @@
 		"artist": "Bad Computer",
 		"url": "bad-computer/calling-us",
 		"duration": 251000
+	},{
+		"id": "weird-dream",
+		"name": "Weird Dream",
+		"artist": "Domastic",
+		"url": "domastic/weird-dream",
+		"duration": 251000
 	}
 ]
