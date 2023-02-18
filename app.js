@@ -17,7 +17,7 @@ class AudioPlayer {
 		this.nextSongTimeout = null;
 		this.player = createAudioPlayer();
 		this.resource = null;
-		this.volume = 0.25;
+		this.volume = 0.05;
 	};
 
 	connect (channel) {
