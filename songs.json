@@ -41,5 +41,23 @@
 		"artist": "Marshmello",
 		"url": "marshmello/alone",
 		"duration": 200000
+	},{
+		"id": "calling-us",
+		"name": "Calling Us",
+		"artist": "Bad Computer",
+		"url": "bad-computer/calling-us",
+		"duration": 251000
+	},{
+		"id": "weird-dream",
+		"name": "Weird Dream",
+		"artist": "Domastic",
+		"url": "domastic/weird-dream",
+		"duration": 251000
+	},{
+		"id": "psychofreak",
+		"name": "Psychofreak",
+		"artist": "Camila Cabello",
+		"url": "camila-cabello/psychofreak",
+		"duration": 207000
 	}
 ]
